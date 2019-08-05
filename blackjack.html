@@ -1,0 +1,79 @@
+<meta charsetutf=8">
+<script>
+
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getCard() {
+	var cards = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+	return cards[getRandomInt(0, cards.length -1)]; 
+}
+
+function getSum(hand) {
+	var sum = 0;
+	for (var i=0; i<hand.length; i++) {
+		var card = hand[i];
+		if (card != 'J' && card != 'Q' && card != 'K' && card != 'A') {
+			sum = sum + parseInt(card);	
+		} else if (card == 'A') {
+			if (sum > 10) {
+				sum = sum + 1;
+			} else {
+				sum = sum + 11;
+			}	
+		} else if (card != 'A') {
+			if (card == 'J' || card == 'Q' || card == 'K') {
+				sum = sum + 10;
+			} 
+		}  
+	}
+	return sum;
+}
+
+function getStatus() {
+	return 'Дилер: ' + dealer.join(' ') + ' Игрок: ' + player.join(' ') + ' . ';
+}
+
+var dealer = [getCard()];
+var player = [getCard(), getCard()];
+var answer = '';
+
+if(getSum(player) == 21) {
+	alert('BlackJack на раздаче! Поздравляю!')
+} else {
+	var answer = '';
+
+	do {
+		answer = prompt(getStatus() + ' Хотите взять еще карту? 1 - да, иначе - нет');
+		if (answer == '1') {
+			player.push(getCard());
+		
+			 if (getSum(player) == 21) {
+				alert('BlackJack! Поздравляю, вы выиграли! Сумма карт: ' + getStatus());
+				break;
+			} else if (getSum(player) > 21) {
+				alert('Перебор! Сумма карт: ' + getStatus());
+				break;
+			}
+		} else {
+			while(getSum(dealer) < 17) {
+				dealer.push(getCard());
+			}
+			if(getSum(dealer) == 21) {
+				alert('У дилера BlackJack! ' + getStatus());
+			} else if(getSum(dealer) > 21) {
+				alert('У дилера перебор! Сумма карт: ' + getStatus());
+			} else if(getSum(player) == getSum(dealer)) {
+				alert('Невероятно! У нас ничья! ' + getStatus());
+			} else if(getSum(player) > getSum(dealer) ) {
+				alert('Игрок победил! ' + getStatus());
+			} else {
+				alert('Дилер победил ' + getStatus());
+			}
+
+		}	
+	} while(answer == '1');
+}
+
+</script>

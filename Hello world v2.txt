@@ -1,5 +1,11 @@
 <meta charset"utf=8">
 <script>
 var name = prompt("Твое имя: ");
+var age = prompt("Укажи свой возраст: ");
+if (age < 18) {
+	alert("Прости, я не могу пропустить тебя дальше");
+	break;
+} else {	
 alert("Hello, " + name + "!!!");
+}
 </script>

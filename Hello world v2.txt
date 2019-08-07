@@ -1,5 +1,5 @@
 <meta charset"utf=8">
 <script>
 var name = prompt("Твое имя: ");
-alert("Hello, " + name + "!");
+alert("Hello, " + name + "!!!");
 </script>
